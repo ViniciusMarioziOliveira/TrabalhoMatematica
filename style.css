@@ -1,0 +1,106 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial;
+    background-color: black;
+}
+
+h1 {
+    font-size: 90px;
+    text-align: center;
+    margin-top: 20px;
+    font-family: title;
+    color: white;
+}
+
+h3 {
+    text-align: center;
+    font-family: title;
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+main {
+    flex: 1;
+    font-size: 20px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    padding-top: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+    padding-bottom: 30px;
+    margin: 20px
+}
+
+.forma {
+    width: 310px;
+    height: 520px;
+    background-color: blue;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 3px 5px 5px;
+    margin-bottom: 30px;
+    background-image: linear-gradient(to bottom, blue, darkblue);
+    font-family: segoe ui;
+    font-size: 19px;
+}
+
+.forma img{
+    width: 250px;
+    height: 220px;
+    margin-left: 15px;
+    border-radius: 15px;
+}
+
+.forma h2 {
+    text-align: center;
+    font-size: 23px;
+}
+
+.forma p {
+    text-align: center;
+    font-size: 17px;
+}
+
+a {
+    color: inherit; 
+    text-decoration: none; 
+    outline: none; 
+}
+
+.Agradecimento {
+    width: 1780px;
+    height: 600px;
+    background-image: linear-gradient(to bottom, red, darkred);
+    border-radius: 15px;
+}
+
+.Agradecimento h3 {
+    font-size: 70px;
+    color: white;
+    font-family: Serif;
+}
+
+.Agradecimento p {
+    text-align: center;
+    font-size: 50px;
+    color: white;
+    font-family: Serif;
+}
+
+.Agradecimento img {
+    width: 350px;
+    height: 350px;
+    
+    border-radius: 20px;
+}

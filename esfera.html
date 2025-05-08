@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Esferas - Calculadora Geométrica</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <h1>Calculadora de Esferas</h1>
+  <a href="index.html">⬅ Voltar ao menu</a>
+
+  <p>Escolha o tipo de esfera:</p>
+  <select id="tipo" onchange="mostrarCampos()">
+    <option value="">-- Selecione --</option>
+    <option value="esfera">Esfera</option>
+    <option value="calota">Calota Esférica</option>
+    <option value="fuso">Fuso Esférico</option>
+  </select>
+
+  <div id="campos" class="campos"></div>
+
+  <button onclick="calcular()">Calcular Volume</button>
+
+  <div id="resultado" class="resultado"></div>
+
+  <script>
+    function mostrarCampos() {
+      const tipo = document.getElementById('tipo').value;
+      const camposDiv = document.getElementById('campos');
+      camposDiv.innerHTML = '';
+
+      if (tipo === 'esfera') {
+        camposDiv.innerHTML = `
+          <input type="number" id="raio" placeholder="Raio" step="any">
+        `;
+      } else if (tipo === 'calota') {
+        camposDiv.innerHTML = `
+          <input type="number" id="raio" placeholder="Raio da esfera" step="any">
+          <input type="number" id="alturaCalota" placeholder="Altura da calota" step="any">
+        `;
+      } else if (tipo === 'fuso') {
+        camposDiv.innerHTML = `
+          <input type="number" id="raio" placeholder="Raio da esfera" step="any">
+          <input type="number" id="angulo" placeholder="Ângulo (em graus)" step="any">
+        `;
+      }
+    }
+
+    function calcular() {
+      const tipo = document.getElementById('tipo').value;
+      const pi = Math.PI;
+      let resultado = '';
+
+      if (tipo === 'esfera') {
+        const raio = parseFloat(document.getElementById('raio').value);
+        const volume = (4 / 3) * pi * Math.pow(raio, 3);
+        resultado = `Volume: ${volume.toFixed(2)}`;
+      } else if (tipo === 'calota') {
+        const raio = parseFloat(document.getElementById('raio').value);
+        const altura = parseFloat(document.getElementById('alturaCalota').value);
+        const volume = (pi * altura ** 2 * (3 * raio - altura)) / 3;
+        resultado = `Volume: ${volume.toFixed(2)}`;
+      } else if (tipo === 'fuso') {
+        const raio = parseFloat(document.getElementById('raio').value);
+        const angulo = parseFloat(document.getElementById('angulo').value);
+        const volume = (pi * Math.pow(raio, 3) * angulo) / 360;
+        resultado = `Volume: ${volume.toFixed(2)}`;
+      }
+
+      document.getElementById('resultado').textContent = resultado;
+    }
+  </script>
+</body>
+</html>

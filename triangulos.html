@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Triângulos - Calculadora Geométrica</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <h1>Calculadora de Triângulos</h1>
+  <a href="index.html">⬅ Voltar ao menu</a>
+
+  <p>Escolha o tipo de triângulo:</p>
+  <select id="tipo" onchange="mostrarCampos()">
+    <option value="">-- Selecione --</option>
+    <option value="baseAltura">Base e Altura</option>
+    <option value="equilatero">Equilátero</option>
+    <option value="heron">Três Lados (Heron)</option>
+  </select>
+
+  <div id="campos" class="campos"></div>
+
+  <button onclick="calcular()">Calcular</button>
+
+  <div id="resultado" class="resultado"></div>
+
+  <script>
+    function mostrarCampos() {
+      const tipo = document.getElementById('tipo').value;
+      const camposDiv = document.getElementById('campos');
+      camposDiv.innerHTML = '';
+
+      if (tipo === 'baseAltura') {
+        camposDiv.innerHTML = `
+          <input type="number" id="base" placeholder="Base" step="any">
+          <input type="number" id="altura" placeholder="Altura" step="any">
+        `;
+      } else if (tipo === 'equilatero') {
+        camposDiv.innerHTML = `
+          <input type="number" id="lado" placeholder="Lado do triângulo" step="any">
+        `;
+      } else if (tipo === 'heron') {
+        camposDiv.innerHTML = `
+          <input type="number" id="a" placeholder="Lado a" step="any">
+          <input type="number" id="b" placeholder="Lado b" step="any">
+          <input type="number" id="c" placeholder="Lado c" step="any">
+        `;
+      }
+    }
+
+    function calcular() {
+      const tipo = document.getElementById('tipo').value;
+      let resultado = '';
+
+      if (tipo === 'baseAltura') {
+        const base = parseFloat(document.getElementById('base').value);
+        const altura = parseFloat(document.getElementById('altura').value);
+        resultado = `Área: ${(0.5 * base * altura).toFixed(2)}`;
+      } else if (tipo === 'equilatero') {
+        const lado = parseFloat(document.getElementById('lado').value);
+        resultado = `Área: ${((Math.sqrt(3) / 4) * lado ** 2).toFixed(2)}`;
+      } else if (tipo === 'heron') {
+        const a = parseFloat(document.getElementById('a').value);
+        const b = parseFloat(document.getElementById('b').value);
+        const c = parseFloat(document.getElementById('c').value);
+        const s = (a + b + c) / 2;
+        const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
+        if (isNaN(area)) {
+          resultado = "Valores inválidos para formar um triângulo.";
+        } else {
+          resultado = `Área: ${area.toFixed(2)}`;
+        }
+      }
+
+      document.getElementById('resultado').textContent = resultado;
+    }
+  </script>
+</body>
+</html>

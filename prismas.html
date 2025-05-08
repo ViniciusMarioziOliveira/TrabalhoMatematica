@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Prismas - Calculadora Geométrica</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <h1>Calculadora de Prismas</h1>
+  <a href="index.html">⬅ Voltar ao menu</a>
+
+  <p>Escolha o tipo de prisma:</p>
+  <select id="tipoPrisma" onchange="mostrarCampos()">
+    <option value="">-- Selecione --</option>
+    <option value="retangular">Prisma Retangular</option>
+    <option value="triangular">Prisma Triangular</option>
+  </select>
+
+  <div id="campos" class="campos"></div>
+
+  <button onclick="calcular()">Calcular Volume e Área</button>
+
+  <div id="resultado" class="resultado"></div>
+
+  <script>
+    function mostrarCampos() {
+      const tipo = document.getElementById('tipoPrisma').value;
+      const camposDiv = document.getElementById('campos');
+      camposDiv.innerHTML = '';
+
+      if (tipo === 'retangular') {
+        camposDiv.innerHTML = `
+          <input type="number" id="comprimento" placeholder="Comprimento (cm)" step="any">
+          <input type="number" id="largura" placeholder="Largura (cm)" step="any">
+          <input type="number" id="alturaRet" placeholder="Altura (cm)" step="any">
+        `;
+      } else if (tipo === 'triangular') {
+        camposDiv.innerHTML = `
+          <input type="number" id="baseTri" placeholder="Base do Triângulo (cm)" step="any">
+          <input type="number" id="alturaTri" placeholder="Altura do Triângulo (cm)" step="any">
+          <input type="number" id="alturaPrismaTri" placeholder="Altura do Prisma (cm)" step="any">
+        `;
+      }
+    }
+
+    function calcular() {
+      const tipo = document.getElementById('tipoPrisma').value;
+      let volume = 0, area = 0;
+      const resultadoDiv = document.getElementById('resultado');
+
+      if (tipo === 'retangular') {
+        const c = parseFloat(document.getElementById('comprimento').value);
+        const l = parseFloat(document.getElementById('largura').value);
+        const h = parseFloat(document.getElementById('alturaRet').value);
+
+        if (isNaN(c) || isNaN(l) || isNaN(h)) {
+          resultadoDiv.textContent = 'Preencha todos os campos corretamente.';
+          return;
+        }
+
+        volume = c * l * h;
+        area = 2 * (c * l + c * h + l * h);
+
+      } else if (tipo === 'triangular') {
+        const b = parseFloat(document.getElementById('baseTri').value);
+        const a = parseFloat(document.getElementById('alturaTri').value);
+        const h = parseFloat(document.getElementById('alturaPrismaTri').value);
+
+        if (isNaN(b) || isNaN(a) || isNaN(h)) {
+          resultadoDiv.textContent = 'Preencha todos os campos corretamente.';
+          return;
+        }
+
+        const areaBase = (b * a) / 2;
+        volume = areaBase * h;
+        // Aproximação: 3 lados iguais (base, altura, lado inclinado)
+        const ladoInclinado = Math.sqrt((b / 2) ** 2 + a ** 2);
+        area = 2 * areaBase + (b + a + ladoInclinado) * h;
+      }
+
+      resultadoDiv.innerHTML = `
+        <p><strong>Volume:</strong> ${volume.toFixed(2)} cm³</p>
+        <p><strong>Área:</strong> ${area.toFixed(2)} cm²</p>
+      `;
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Pirâmides - Calculadora Geométrica</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <h1>Calculadora de Pirâmides</h1>
+  <a href="index.html">⬅ Voltar ao menu</a>
+
+  <p>Escolha o tipo de pirâmide:</p>
+  <select id="tipo" onchange="mostrarCampos()">
+    <option value="">-- Selecione --</option>
+    <option value="baseQuadrada">Base Quadrada</option>
+    <option value="baseTriangular">Base Triangular</option>
+    <option value="tronco">Tronco de Pirâmide</option>
+  </select>
+
+  <div id="campos" class="campos"></div>
+
+  <button onclick="calcular()">Calcular Volume</button>
+
+  <div id="resultado" class="resultado"></div>
+
+  <script>
+    function mostrarCampos() {
+      const tipo = document.getElementById('tipo').value;
+      const camposDiv = document.getElementById('campos');
+      camposDiv.innerHTML = '';
+
+      if (tipo === 'baseQuadrada') {
+        camposDiv.innerHTML = `
+          <input type="number" id="lado" placeholder="Lado da base" step="any">
+          <input type="number" id="altura" placeholder="Altura" step="any">
+        `;
+      } else if (tipo === 'baseTriangular') {
+        camposDiv.innerHTML = `
+          <input type="number" id="baseTri" placeholder="Base do triângulo" step="any">
+          <input type="number" id="altTri" placeholder="Altura do triângulo" step="any">
+          <input type="number" id="altura" placeholder="Altura da pirâmide" step="any">
+        `;
+      } else if (tipo === 'tronco') {
+        camposDiv.innerHTML = `
+          <input type="number" id="ladoMaior" placeholder="Lado maior da base (L1)" step="any">
+          <input type="number" id="ladoMenor" placeholder="Lado menor da base (L2)" step="any">
+          <input type="number" id="altura" placeholder="Altura" step="any">
+        `;
+      }
+    }
+
+    function calcular() {
+      const tipo = document.getElementById('tipo').value;
+      let resultado = '';
+
+      if (tipo === 'baseQuadrada') {
+        const lado = parseFloat(document.getElementById('lado').value);
+        const altura = parseFloat(document.getElementById('altura').value);
+        const volume = (lado ** 2 * altura) / 3;
+        resultado = `Volume: ${volume.toFixed(2)}`;
+      } else if (tipo === 'baseTriangular') {
+        const base = parseFloat(document.getElementById('baseTri').value);
+        const altTri = parseFloat(document.getElementById('altTri').value);
+        const altura = parseFloat(document.getElementById('altura').value);
+        const areaBase = (base * altTri) / 2;
+        const volume = (areaBase * altura) / 3;
+        resultado = `Volume: ${volume.toFixed(2)}`;
+      } else if (tipo === 'tronco') {
+        const L1 = parseFloat(document.getElementById('ladoMaior').value);
+        const L2 = parseFloat(document.getElementById('ladoMenor').value);
+        const h = parseFloat(document.getElementById('altura').value);
+        const volume = (h / 3) * (L1 ** 2 + L2 ** 2 + L1 * L2);
+        resultado = `Volume: ${volume.toFixed(2)}`;
+      }
+
+      document.getElementById('resultado').textContent = resultado;
+    }
+  </script>
+</body>
+</html>

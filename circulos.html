@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Círculos - Calculadora Geométrica</title>
+  <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+  <h1>Calculadora de Círculos</h1>
+  <a href="index.html">⬅ Voltar ao menu</a>
+
+  <p>Escolha o tipo de figura circular:</p>
+  <select id="tipo" onchange="mostrarCampos()">
+    <option value="">-- Selecione --</option>
+    <option value="circulo">Círculo</option>
+    <option value="coroa">Coroa Circular</option>
+    <option value="setor">Setor Circular</option>
+  </select>
+
+  <div id="campos" class="campos"></div>
+
+  <button onclick="calcular()">Calcular</button>
+
+  <div id="resultado" class="resultado"></div>
+
+  <script>
+    function mostrarCampos() {
+      const tipo = document.getElementById('tipo').value;
+      const camposDiv = document.getElementById('campos');
+      camposDiv.innerHTML = '';
+
+      if (tipo === 'circulo') {
+        camposDiv.innerHTML = `
+          <input type="number" id="raio" placeholder="Raio" step="any">
+        `;
+      } else if (tipo === 'coroa') {
+        camposDiv.innerHTML = `
+          <input type="number" id="raioMaior" placeholder="Raio maior (R)" step="any">
+          <input type="number" id="raioMenor" placeholder="Raio menor (r)" step="any">
+        `;
+      } else if (tipo === 'setor') {
+        camposDiv.innerHTML = `
+          <input type="number" id="raioSetor" placeholder="Raio" step="any">
+          <input type="number" id="angulo" placeholder="Ângulo (em graus)" step="any">
+        `;
+      }
+    }
+
+    function calcular() {
+      const tipo = document.getElementById('tipo').value;
+      let resultado = '';
+      const pi = Math.PI;
+
+      if (tipo === 'circulo') {
+        const raio = parseFloat(document.getElementById('raio').value);
+        resultado = `Área: ${(pi * raio ** 2).toFixed(2)}`;
+      } else if (tipo === 'coroa') {
+        const R = parseFloat(document.getElementById('raioMaior').value);
+        const r = parseFloat(document.getElementById('raioMenor').value);
+        if (r >= R) {
+          resultado = "O raio menor deve ser menor que o maior.";
+        } else {
+          resultado = `Área: ${(pi * (R ** 2 - r ** 2)).toFixed(2)}`;
+        }
+      } else if (tipo === 'setor') {
+        const raio = parseFloat(document.getElementById('raioSetor').value);
+        const angulo = parseFloat(document.getElementById('angulo').value);
+        resultado = `Área: ${(pi * raio ** 2 * (angulo / 360)).toFixed(2)}`;
+      }
+
+      document.getElementById('resultado').textContent = resultado;
+    }
+  </script>
+</body>
+</html>
