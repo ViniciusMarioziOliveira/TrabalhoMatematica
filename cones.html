@@ -51,17 +51,57 @@
       if (tipo === 'reto' || tipo === 'obliquo') {
         const raio = parseFloat(document.getElementById('raio').value);
         const altura = parseFloat(document.getElementById('altura').value);
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (isNaN(raio) || isNaN(altura) || raio <= 0 || altura <= 0) {
+          document.getElementById('resultado').textContent = 'Informe valores válidos para raio e altura (maiores que zero).';
+          return;
+        }
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
         const volume = (pi * raio ** 2 * altura) / 3;
-        resultado = `Volume: ${volume.toFixed(2)}`;
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        let areaBase = pi * raio ** 2;
+        let geratriz = Math.sqrt(raio ** 2 + altura ** 2);
+        let areaLateral = 0;
+        let areaTotal = 0;
+
+        if (tipo === 'reto') {
+          areaLateral = pi * raio * geratriz;
+          areaTotal = areaLateral + areaBase;
+          resultado = `
+            Volume: ${volume.toFixed(2)}<br>
+            Área Lateral: ${areaLateral.toFixed(2)}<br>
+            Área Total: ${areaTotal.toFixed(2)}
+          `;
+        } else {
+          resultado = `Volume: ${volume.toFixed(2)}`;
+        }
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
       } else if (tipo === 'tronco') {
         const R = parseFloat(document.getElementById('raioMaior').value);
         const r = parseFloat(document.getElementById('raioMenor').value);
         const h = parseFloat(document.getElementById('altura').value);
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (isNaN(R) || isNaN(r) || isNaN(h) || R <= 0 || r <= 0 || h <= 0) {
+          document.getElementById('resultado').textContent = 'Informe valores válidos (maiores que zero) para os raios e altura.';
+          return;
+        }
+
+        if (r >= R) {
+          document.getElementById('resultado').textContent = 'O raio menor deve ser menor que o raio maior.';
+          return;
+        }
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
         const volume = (pi * h / 3) * (R ** 2 + R * r + r ** 2);
         resultado = `Volume: ${volume.toFixed(2)}`;
       }
 
-      document.getElementById('resultado').textContent = resultado;
+      document.getElementById('resultado').innerHTML = resultado;
     }
   </script>
 </body>

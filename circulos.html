@@ -53,22 +53,54 @@
 
       if (tipo === 'circulo') {
         const raio = parseFloat(document.getElementById('raio').value);
-        resultado = `Área: ${(pi * raio ** 2).toFixed(2)}`;
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (isNaN(raio) || raio <= 0) {
+          document.getElementById('resultado').textContent = 'Informe um raio válido (maior que zero).';
+          return;
+        }
+
+        const area = pi * raio ** 2;
+        const circunferencia = 2 * pi * raio;
+        resultado = `
+          Área: ${area.toFixed(2)}<br>
+          Circunferência: ${circunferencia.toFixed(2)}
+        `;
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
       } else if (tipo === 'coroa') {
         const R = parseFloat(document.getElementById('raioMaior').value);
         const r = parseFloat(document.getElementById('raioMenor').value);
-        if (r >= R) {
-          resultado = "O raio menor deve ser menor que o maior.";
-        } else {
-          resultado = `Área: ${(pi * (R ** 2 - r ** 2)).toFixed(2)}`;
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (isNaN(R) || isNaN(r) || R <= 0 || r <= 0) {
+          document.getElementById('resultado').textContent = 'Informe raios válidos (maiores que zero).';
+          return;
         }
+
+        if (r >= R) {
+          document.getElementById('resultado').textContent = "O raio menor deve ser menor que o maior.";
+          return;
+        }
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+        resultado = `Área: ${(pi * (R ** 2 - r ** 2)).toFixed(2)}`;
+
       } else if (tipo === 'setor') {
         const raio = parseFloat(document.getElementById('raioSetor').value);
         const angulo = parseFloat(document.getElementById('angulo').value);
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (isNaN(raio) || isNaN(angulo) || raio <= 0 || angulo <= 0 || angulo > 360) {
+          document.getElementById('resultado').textContent = 'Informe um raio > 0 e um ângulo entre 0 e 360 graus.';
+          return;
+        }
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
         resultado = `Área: ${(pi * raio ** 2 * (angulo / 360)).toFixed(2)}`;
       }
 
-      document.getElementById('resultado').textContent = resultado;
+      document.getElementById('resultado').innerHTML = resultado;
     }
   </script>
 </body>

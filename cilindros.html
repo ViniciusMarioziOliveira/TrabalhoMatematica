@@ -9,7 +9,7 @@
   <h1>Calculadora de Cilindros</h1>
   <a href="index.html">⬅ Voltar ao menu</a>
 
-  <p>Escolha o tipo de cilindro:</p>
+  <p>Escolha o tipo de cilindro:</p> 
   <select id="tipo" onchange="mostrarCampos()">
     <option value="">-- Selecione --</option>
     <option value="reto">Cilindro Reto</option>
@@ -37,14 +37,37 @@
       const raio = parseFloat(document.getElementById('raio').value);
       const altura = parseFloat(document.getElementById('altura').value);
       const pi = Math.PI;
-      const volume = pi * raio ** 2 * altura;
       let resultado = '';
 
-      if (tipo === 'reto' || tipo === 'obliquo') {
-        resultado = `Volume: ${volume.toFixed(2)}`;
+      // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      if (isNaN(raio) || isNaN(altura)) {
+        document.getElementById('resultado').textContent = 'Por favor, preencha todos os campos.';
+        return;
       }
 
-      document.getElementById('resultado').textContent = resultado;
+      if (raio <= 0 || altura <= 0) {
+        document.getElementById('resultado').textContent = 'Raio e altura devem ser maiores que zero.';
+        return;
+      }
+      // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+      const volume = pi * raio ** 2 * altura;
+
+      // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      const areaBase = pi * raio ** 2;
+      const areaLateral = 2 * pi * raio * altura;
+      const areaTotal = 2 * areaBase + areaLateral;
+      // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+      if (tipo === 'reto' || tipo === 'obliquo') {
+        resultado = `
+          Volume: ${volume.toFixed(2)}<br>
+          Área Lateral: ${areaLateral.toFixed(2)}<br>
+          Área Total: ${areaTotal.toFixed(2)}
+        `;
+      }
+
+      document.getElementById('resultado').innerHTML = resultado;
     }
   </script>
 </body>

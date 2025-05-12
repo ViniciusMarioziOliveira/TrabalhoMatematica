@@ -53,21 +53,54 @@
 
       if (tipo === 'esfera') {
         const raio = parseFloat(document.getElementById('raio').value);
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (isNaN(raio) || raio <= 0) {
+          document.getElementById('resultado').textContent = 'Informe um raio válido (maior que zero).';
+          return;
+        }
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
         const volume = (4 / 3) * pi * Math.pow(raio, 3);
-        resultado = `Volume: ${volume.toFixed(2)}`;
+        
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        const areaSuperficie = 4 * pi * Math.pow(raio, 2);
+        resultado = `
+          Volume: ${volume.toFixed(2)}<br>
+          Área da Superfície: ${areaSuperficie.toFixed(2)}
+        `;
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
       } else if (tipo === 'calota') {
         const raio = parseFloat(document.getElementById('raio').value);
         const altura = parseFloat(document.getElementById('alturaCalota').value);
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (isNaN(raio) || isNaN(altura) || raio <= 0 || altura <= 0 || altura > 2 * raio) {
+          document.getElementById('resultado').textContent = 'Informe valores válidos (maiores que zero) e uma altura coerente com o raio.';
+          return;
+        }
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
         const volume = (pi * altura ** 2 * (3 * raio - altura)) / 3;
         resultado = `Volume: ${volume.toFixed(2)}`;
+
       } else if (tipo === 'fuso') {
         const raio = parseFloat(document.getElementById('raio').value);
         const angulo = parseFloat(document.getElementById('angulo').value);
-        const volume = (pi * Math.pow(raio, 3) * angulo) / 360;
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (isNaN(raio) || isNaN(angulo) || raio <= 0 || angulo <= 0 || angulo > 360) {
+          document.getElementById('resultado').textContent = 'Informe um raio válido (maior que zero) e ângulo entre 0 e 360.';
+          return;
+        }
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+
+        const volume = (pi * Math.pow(raio, 3) * angulo) / 270;
         resultado = `Volume: ${volume.toFixed(2)}`;
       }
 
-      document.getElementById('resultado').textContent = resultado;
+      document.getElementById('resultado').innerHTML = resultado;
     }
   </script>
 </body>

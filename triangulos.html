@@ -54,24 +54,45 @@
       if (tipo === 'baseAltura') {
         const base = parseFloat(document.getElementById('base').value);
         const altura = parseFloat(document.getElementById('altura').value);
-        resultado = `Área: ${(0.5 * base * altura).toFixed(2)}`;
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (base <= 0 || altura <= 0 || isNaN(base) || isNaN(altura)) {
+          resultado = 'Erro: base e altura devem ser maiores que zero.';
+        } else {
+          resultado = `Área: ${(0.5 * base * altura).toFixed(2)}`;
+        }
+
       } else if (tipo === 'equilatero') {
         const lado = parseFloat(document.getElementById('lado').value);
-        resultado = `Área: ${((Math.sqrt(3) / 4) * lado ** 2).toFixed(2)}`;
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (lado <= 0 || isNaN(lado)) {
+          resultado = 'Erro: o lado deve ser maior que zero.';
+        } else {
+          const area = (Math.sqrt(3) / 4) * lado ** 2;
+          resultado = `Área: ${area.toFixed(2)}`;
+
+          // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        }
+
       } else if (tipo === 'heron') {
         const a = parseFloat(document.getElementById('a').value);
         const b = parseFloat(document.getElementById('b').value);
         const c = parseFloat(document.getElementById('c').value);
-        const s = (a + b + c) / 2;
-        const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
-        if (isNaN(area)) {
-          resultado = "Valores inválidos para formar um triângulo.";
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (a <= 0 || b <= 0 || c <= 0 || isNaN(a) || isNaN(b) || isNaN(c)) {
+          resultado = 'Erro: todos os lados devem ser maiores que zero.';
+        } else if (a + b <= c || a + c <= b || b + c <= a) {
+          resultado = 'Erro: os lados não formam um triângulo válido.';
         } else {
+          const s = (a + b + c) / 2;
+          const area = Math.sqrt(s * (s - a) * (s - b) * (s - c));
           resultado = `Área: ${area.toFixed(2)}`;
         }
       }
 
-      document.getElementById('resultado').textContent = resultado;
+      document.getElementById('resultado').innerHTML = resultado;
     }
   </script>
 </body>

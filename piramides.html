@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
@@ -31,20 +31,20 @@
 
       if (tipo === 'baseQuadrada') {
         camposDiv.innerHTML = `
-          <input type="number" id="lado" placeholder="Lado da base" step="any">
-          <input type="number" id="altura" placeholder="Altura" step="any">
+          <input type="number" id="lado" placeholder="Lado da base" step="any" min="0.0001">
+          <input type="number" id="altura" placeholder="Altura" step="any" min="0.0001">
         `;
       } else if (tipo === 'baseTriangular') {
         camposDiv.innerHTML = `
-          <input type="number" id="baseTri" placeholder="Base do triângulo" step="any">
-          <input type="number" id="altTri" placeholder="Altura do triângulo" step="any">
-          <input type="number" id="altura" placeholder="Altura da pirâmide" step="any">
+          <input type="number" id="baseTri" placeholder="Base do triângulo" step="any" min="0.0001">
+          <input type="number" id="altTri" placeholder="Altura do triângulo" step="any" min="0.0001">
+          <input type="number" id="altura" placeholder="Altura da pirâmide" step="any" min="0.0001">
         `;
       } else if (tipo === 'tronco') {
         camposDiv.innerHTML = `
-          <input type="number" id="ladoMaior" placeholder="Lado maior da base (L1)" step="any">
-          <input type="number" id="ladoMenor" placeholder="Lado menor da base (L2)" step="any">
-          <input type="number" id="altura" placeholder="Altura" step="any">
+          <input type="number" id="ladoMaior" placeholder="Lado maior da base (L1)" step="any" min="0.0001">
+          <input type="number" id="ladoMenor" placeholder="Lado menor da base (L2)" step="any" min="0.0001">
+          <input type="number" id="altura" placeholder="Altura" step="any" min="0.0001">
         `;
       }
     }
@@ -53,24 +53,64 @@
       const tipo = document.getElementById('tipo').value;
       let resultado = '';
 
+      // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      if (!tipo) {
+        document.getElementById('resultado').textContent = 'Por favor, selecione um tipo de pirâmide.';
+        return;
+      }
+
+      // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+      function validar(...valores) {
+        return valores.every(v => !isNaN(v) && v > 0);
+      }
+
       if (tipo === 'baseQuadrada') {
         const lado = parseFloat(document.getElementById('lado').value);
         const altura = parseFloat(document.getElementById('altura').value);
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (!validar(lado, altura)) {
+          document.getElementById('resultado').textContent = 'Digite valores positivos e maiores que zero para lado e altura.';
+          return;
+        }
+
         const volume = (lado ** 2 * altura) / 3;
-        resultado = `Volume: ${volume.toFixed(2)}`;
+        resultado = `Volume: ${volume.toFixed(2)} unidades cúbicas`;
+
       } else if (tipo === 'baseTriangular') {
         const base = parseFloat(document.getElementById('baseTri').value);
         const altTri = parseFloat(document.getElementById('altTri').value);
         const altura = parseFloat(document.getElementById('altura').value);
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (!validar(base, altTri, altura)) {
+          document.getElementById('resultado').textContent = 'Digite valores positivos e maiores que zero para base, altura do triângulo e altura da pirâmide.';
+          return;
+        }
+
         const areaBase = (base * altTri) / 2;
         const volume = (areaBase * altura) / 3;
-        resultado = `Volume: ${volume.toFixed(2)}`;
+        resultado = `Volume: ${volume.toFixed(2)} unidades cúbicas`;
+
       } else if (tipo === 'tronco') {
         const L1 = parseFloat(document.getElementById('ladoMaior').value);
         const L2 = parseFloat(document.getElementById('ladoMenor').value);
         const h = parseFloat(document.getElementById('altura').value);
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (!validar(L1, L2, h)) {
+          document.getElementById('resultado').textContent = 'Digite valores positivos e maiores que zero para os lados e altura.';
+          return;
+        }
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        if (L1 <= L2) {
+          document.getElementById('resultado').textContent = 'O lado maior da base (L1) deve ser maior que o lado menor (L2).';
+          return;
+        }
+
         const volume = (h / 3) * (L1 ** 2 + L2 ** 2 + L1 * L2);
-        resultado = `Volume: ${volume.toFixed(2)}`;
+        resultado = `Volume: ${volume.toFixed(2)} unidades cúbicas`;
       }
 
       document.getElementById('resultado').textContent = resultado;
