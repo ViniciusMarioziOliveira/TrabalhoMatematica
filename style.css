@@ -18,6 +18,9 @@ h1 {
     margin-top: 20px;
     font-family: title;
     color: white;
+    -webkit-text-stroke: 1px;
+    -webkit-text-stroke-color: blue;
+    -webkit-text-stroke-width: 1px;
 }
 
 h3 {
@@ -64,12 +67,12 @@ main {
 
 .forma h2 {
     text-align: center;
-    font-size: 23px;
+    font-size: 40px;
 }
 
 .forma p {
     text-align: center;
-    font-size: 17px;
+    font-size: 20px;
 }
 
 a {
@@ -79,8 +82,8 @@ a {
 }
 
 .Agradecimento {
-    width: 1780px;
-    height: 600px;
+    width: 1180px;
+    height: 400px;
     background-image: linear-gradient(to bottom, red, darkred);
     border-radius: 15px;
 }
@@ -93,7 +96,7 @@ a {
 
 .Agradecimento p {
     text-align: center;
-    font-size: 50px;
+    font-size: 40px;
     color: white;
     font-family: Serif;
 }
