@@ -53,8 +53,13 @@
         const l = parseFloat(document.getElementById('largura').value);
         const h = parseFloat(document.getElementById('alturaRet').value);
 
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         if (isNaN(c) || isNaN(l) || isNaN(h)) {
           resultadoDiv.textContent = 'Preencha todos os campos corretamente.';
+          return;
+        }
+        if (c <= 0 || l <= 0 || h <= 0) {
+          resultadoDiv.textContent = 'Os valores devem ser maiores que zero.';
           return;
         }
 
@@ -66,15 +71,21 @@
         const a = parseFloat(document.getElementById('alturaTri').value);
         const h = parseFloat(document.getElementById('alturaPrismaTri').value);
 
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         if (isNaN(b) || isNaN(a) || isNaN(h)) {
           resultadoDiv.textContent = 'Preencha todos os campos corretamente.';
+          return;
+        }
+        if (b <= 0 || a <= 0 || h <= 0) {
+          resultadoDiv.textContent = 'Os valores devem ser maiores que zero.';
           return;
         }
 
         const areaBase = (b * a) / 2;
         volume = areaBase * h;
-        // Aproximação: 3 lados iguais (base, altura, lado inclinado)
-        const ladoInclinado = Math.sqrt((b / 2) ** 2 + a ** 2);
+
+        // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+        const ladoInclinado = Math.sqrt((b / 2) ** 2 + a ** 2); // aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
         area = 2 * areaBase + (b + a + ladoInclinado) * h;
       }
 
